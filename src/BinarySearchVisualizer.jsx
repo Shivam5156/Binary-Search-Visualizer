@@ -13,10 +13,12 @@ const BinarySearchVisualization = () => {
   const [found, setFound] = useState(null);
 
   const [history, setHistory] = useState([]);
+  const [error, setError] = useState("");
 
   const [customInput, setCustomInput] = useState("");
   const [customTarget, setCustomTarget] = useState("");
 
+  const [currentCaseIndex, setCurrentCaseIndex] = useState(0);
   const [testCases, setTestCases] = useState([
     { nums: [1, 3, 5, 7, 9, 11], target: 7 },
     { nums: [2, 4, 6, 8, 10], target: 10 },
@@ -70,25 +72,40 @@ const BinarySearchVisualization = () => {
     return () => clearTimeout(timer);
   }, [isPlaying, low, high]);
 
-  const reset = (arr = nums) => {
+
+  const reset = (arr = nums, tgt = target) => {
+    setNums(arr);
+    setTarget(tgt);
     setLow(0);
     setHigh(arr.length - 1);
     setMid(null);
     setHistory([]);
     setFound(null);
     setIsPlaying(false);
+    setError("");
   };
 
+
+  const handleReset = () => {
+    if (testCases[currentCaseIndex]) {
+      const { nums: n, target: t } = testCases[currentCaseIndex];
+      reset(n, t);
+    } else {
+      reset(nums, target); // fallback safety
+    }
+  };
   const runTestCase = (index) => {
     const { nums: n, target: t } = testCases[index];
+    setCurrentCaseIndex(index);
     setNums(n);
     setTarget(t);
-    reset(n);
+    reset(n, t);
   };
 
+  // ERROR STATE
   const addCustomTestCase = () => {
     if (!customInput.trim() || !customTarget.trim()) {
-      alert("Array and Target cannot be empty");
+      setError("Array and Target cannot be empty");
       return;
     }
 
@@ -96,18 +113,26 @@ const BinarySearchVisualization = () => {
     const tgt = Number(customTarget);
 
     if (arr.some(isNaN) || isNaN(tgt)) {
-      alert("Invalid input");
+      setError("Invalid input (numbers only)");
       return;
     }
 
-    setTestCases([...testCases, { nums: arr, target: tgt }]);
+    setError("");
+
+    const newCases = [...testCases, { nums: arr, target: tgt }];
+    setTestCases(newCases);
+
+    //  set current index to newly added case
+    const newIndex = newCases.length - 1;
+    setCurrentCaseIndex(newIndex);
+    reset(arr, tgt);
+
     setCustomInput("");
     setCustomTarget("");
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white flex justify-center p-6">
-
       <div className="w-full max-w-4xl flex flex-col gap-6 items-center">
 
         <h1 className="text-3xl font-extrabold text-purple-400 text-center">
@@ -148,19 +173,26 @@ const BinarySearchVisualization = () => {
           />
 
           <button
-            className="px-4 py-2 bg-green-500 rounded transition-all duration-300 hover:bg-green-400 hover:scale-105 shadow-md  cursor-pointer"
+            className="px-4 py-2 bg-green-500 rounded transition-all duration-300 hover:bg-green-400 hover:scale-105 shadow-md cursor-pointer"
             onClick={addCustomTestCase}
           >
             Add
           </button>
         </div>
 
+        {/*  ERROR UI */}
+        {error && (
+          <div className="text-red-400 bg-gray-800 px-4 py-2 rounded border border-red-500">
+            {error}
+          </div>
+        )}
+
         {/* Test Cases */}
         <div className="flex gap-3 flex-wrap justify-center">
           {testCases.map((_, i) => (
             <button
               key={i}
-              className="px-4 py-2 bg-blue-600 rounded transition-all duration-300 hover:bg-blue-500 hover:scale-105 shadow-md  cursor-pointer"
+              className="px-4 py-2 bg-blue-600 rounded transition-all duration-300 hover:bg-blue-500 hover:scale-105 shadow-md cursor-pointer"
               onClick={() => runTestCase(i)}
             >
               Case {i + 1}
@@ -196,27 +228,27 @@ const BinarySearchVisualization = () => {
         <div className="flex gap-4 flex-wrap justify-center">
           <button
             onClick={stepBack}
-            className="p-3 bg-gray-700 rounded transition-all duration-300 hover:bg-gray-600 hover:scale-110 shadow-md  cursor-pointer"
+            className="p-3 bg-gray-700 rounded transition-all duration-300 hover:bg-gray-600 hover:scale-110 shadow-md cursor-pointer"
           >
             <SkipBack />
           </button>
 
           <button
             onClick={() => setIsPlaying(!isPlaying)}
-            className="p-3 bg-purple-600 rounded transition-all duration-300 hover:bg-purple-500 hover:scale-110 shadow-lg  cursor-pointer"
+            className="p-3 bg-purple-600 rounded transition-all duration-300 hover:bg-purple-500 hover:scale-110 shadow-lg cursor-pointer"
           >
             {isPlaying ? <Pause /> : <Play />}
           </button>
 
           <button
             onClick={stepForward}
-            className="p-3 bg-gray-700 rounded transition-all duration-300 hover:bg-gray-600 hover:scale-110 shadow-md  cursor-pointer"
+            className="p-3 bg-gray-700 rounded transition-all duration-300 hover:bg-gray-600 hover:scale-110 shadow-md cursor-pointer"
           >
             <SkipForward />
           </button>
 
           <button
-            onClick={reset}
+            onClick={handleReset}
             className="px-4 py-2 bg-red-500 rounded transition-all duration-300 hover:bg-red-400 hover:scale-105 shadow-md cursor-pointer"
           >
             Reset
