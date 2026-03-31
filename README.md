@@ -28,7 +28,7 @@ An interactive and animated Binary Search Visualizer built using **React** and *
 
 ## 📸 Screenshot
 
-![App Screenshot](./public/screenshot.png)
+![App Screenshot](public/screenshot.png)
 
 ---
 
