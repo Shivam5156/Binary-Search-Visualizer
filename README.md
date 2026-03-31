@@ -1,16 +1,56 @@
-# React + Vite
+# 🔍 Binary Search Visualization
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An interactive and animated Binary Search Visualizer built using **React** and **Tailwind CSS** to help understand how binary search works step-by-step.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Features
 
-## React Compiler
+✨ Step-by-step visualization  
+⏯ Play / Pause simulation  
+⏭ Forward & ⏮ Backward traversal  
+🧠 Real-time low, high, mid tracking  
+🧪 Custom test case input  
+❌ Handles "Target Not Found" case  
+🎯 Clean and responsive UI  
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🛠 Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- ⚛️ React
+- 🎨 Tailwind CSS
+- 🎯 Lucide Icons
+
+---
+
+## 📸 Preview
+
+## 📸 Screenshot
+
+![App Screenshot](./public/screenshot.png)
+
+---
+
+## 🌐 Live Demo
+
+
+
+---
+
+## ⚙️ How It Works
+
+Binary Search works on **sorted arrays** by repeatedly dividing the search space into half:
+
+1. Find the middle element  
+2. Compare with target  
+3. Move left or right accordingly  
+4. Repeat until found or range खत्म  
+
+---
+
+## 🧑‍💻 Run Locally
+
+```bash
+npm install
+npm run dev
