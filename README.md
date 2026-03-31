@@ -24,11 +24,11 @@ An interactive and animated Binary Search Visualizer built using **React** and *
 
 ---
 
+
+
 ## 📸 Preview
 
-## 📸 Screenshot
-
-![App Screenshot](public/screenshot.png)
+![Binary Search Visualizer](./screenshot.png)
 
 ---
 
