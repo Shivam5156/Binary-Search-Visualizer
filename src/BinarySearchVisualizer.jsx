@@ -25,6 +25,13 @@ const BinarySearchVisualization = () => {
     { nums: [1, 2, 3, 4, 5], target: 6 },
   ]);
 
+  const isSorted = (arr) => {
+    for (let i = 1; i < arr.length; i++) {
+      if (arr[i] < arr[i - 1]) return false;
+    }
+    return true;
+  };
+
   const stepForward = () => {
     if (low > high) {
       setIsPlaying(false);
@@ -72,7 +79,6 @@ const BinarySearchVisualization = () => {
     return () => clearTimeout(timer);
   }, [isPlaying, low, high]);
 
-
   const reset = (arr = nums, tgt = target) => {
     setNums(arr);
     setTarget(tgt);
@@ -85,15 +91,15 @@ const BinarySearchVisualization = () => {
     setError("");
   };
 
-
   const handleReset = () => {
     if (testCases[currentCaseIndex]) {
       const { nums: n, target: t } = testCases[currentCaseIndex];
       reset(n, t);
     } else {
-      reset(nums, target); // fallback safety
+      reset(nums, target);
     }
   };
+
   const runTestCase = (index) => {
     const { nums: n, target: t } = testCases[index];
     setCurrentCaseIndex(index);
@@ -102,7 +108,6 @@ const BinarySearchVisualization = () => {
     reset(n, t);
   };
 
-  // ERROR STATE
   const addCustomTestCase = () => {
     if (!customInput.trim() || !customTarget.trim()) {
       setError("Array and Target cannot be empty");
@@ -117,12 +122,16 @@ const BinarySearchVisualization = () => {
       return;
     }
 
+    if (!isSorted(arr)) {
+      setError("Array must be sorted in ascending order");
+      return;
+    }
+
     setError("");
 
     const newCases = [...testCases, { nums: arr, target: tgt }];
     setTestCases(newCases);
 
-    //  set current index to newly added case
     const newIndex = newCases.length - 1;
     setCurrentCaseIndex(newIndex);
     reset(arr, tgt);
@@ -180,7 +189,7 @@ const BinarySearchVisualization = () => {
           </button>
         </div>
 
-        {/*  ERROR UI */}
+        {/* ERROR UI */}
         {error && (
           <div className="text-red-400 bg-gray-800 px-4 py-2 rounded border border-red-500">
             {error}
