@@ -144,11 +144,11 @@ const BinarySearchVisualization = () => {
 
   return (
     <div className="min-h-screen bg-linear-to-br from-gray-950 via-gray-900 to-black text-white flex justify-center p-6">
-      
+
       <div className="w-full max-w-5xl flex flex-col gap-8 items-center bg-gray-900/40 backdrop-blur-xl p-6 rounded-3xl border border-gray-700 shadow-2xl">
 
         <div className="w-full flex flex-col md:flex-row items-center justify-between gap-4 border-b border-gray-700 pb-4">
-          
+
           <h1 className="text-3xl md:text-4xl font-extrabold text-purple-400 tracking-wide">
             Binary Search Visualization
           </h1>
@@ -164,7 +164,7 @@ const BinarySearchVisualization = () => {
         {showFlowChart && (
           <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/70">
             <div className="bg-gray-900 p-4 rounded-xl border border-gray-700 shadow-xl relative w-[95%] max-w-5xl">
-              
+
               <button
                 onClick={() => setShowFlowChart(false)}
                 className="absolute top-2 right-2 text-white bg-red-500 px-3 py-1 rounded hover:bg-red-400"
@@ -204,7 +204,7 @@ const BinarySearchVisualization = () => {
         </div>
 
         <div className="w-full bg-gray-800/60 p-5 rounded-2xl flex gap-3 flex-wrap border border-gray-700 justify-center">
-          
+
           <input
             placeholder="Array"
             className="px-4 py-2 bg-gray-900 border rounded-lg focus:ring-2 focus:ring-green-500 outline-none"
@@ -260,7 +260,8 @@ const BinarySearchVisualization = () => {
           ))}
         </div>
 
-        {/* ✅ ADDED SECTION */}
+
+
         <div className="flex gap-6 flex-wrap justify-center mt-4 text-lg font-semibold">
           <div className="bg-blue-500/20 border border-blue-500 px-6 py-3 rounded-xl">
             Low: {low}
@@ -276,7 +277,7 @@ const BinarySearchVisualization = () => {
         </div>
 
         <div className="flex gap-5 flex-wrap justify-center mt-2">
-          
+
           <button onClick={stepBack} className="p-3 bg-gray-800 rounded-full hover:bg-gray-700 hover:scale-110 transition shadow-md cursor-pointer">
             <SkipBack />
           </button>
@@ -305,6 +306,33 @@ const BinarySearchVisualization = () => {
             {found === -1 ? "❌ Target Not Found" : <>Found at index {found}</>}
           </div>
         )}
+
+        {/* Time Complexity */}
+        <div className="flex flex-col items-center gap-2 mt-4 text-sm md:text-base">
+
+          <div className="bg-purple-500/20 border border-purple-500 px-6 py-3 rounded-xl shadow-md">
+            ⏱ Time Complexity: <span className="text-purple-300 font-semibold">O(log n)</span>
+          </div>
+
+          <div className="flex gap-3 flex-wrap justify-center">
+            <div className="bg-green-500/20 border border-green-500 px-4 py-2 rounded-lg">
+              ✅ Best Case: O(1)
+            </div>
+
+            <div className="bg-yellow-500/20 border border-yellow-500 px-4 py-2 rounded-lg">
+              ⚡ Average: O(log n)
+            </div>
+
+            <div className="bg-red-500/20 border border-red-500 px-4 py-2 rounded-lg">
+              ❌ Worst: O(log n)
+            </div>
+          </div>
+
+          <div className="bg-blue-500/20 border border-blue-500 px-4 py-2 rounded-lg">
+            📦 Space Complexity: O(1)
+          </div>
+
+        </div>
 
       </div>
     </div>
